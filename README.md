@@ -1,4 +1,14 @@
-## Noirrrr
+## MACI in Noir
+
+Rewriting PSE's [MACI](https://github.com/privacy-scaling-explorations/maci) circuits in Noir
+
+## Structure
+
+
+
+
+
+### Noir Cheat sheet
 
 ```
 nargo codegen-verifier  // Creates Verifier Contract
@@ -15,4 +25,4 @@ nargo compile <circuit-name> -c // Compiles contract fn as well
 nargo gates // Counts occurrences of different gates
 nargo test // runs all tests
 nargo test <pattern> // runs tests with the pattern in test name
-```# maci-noir
+```
