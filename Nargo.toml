@@ -1,0 +1,7 @@
+[package]
+authors = [""]
+compiler_version = "0.7.1"
+name = "Noirrrr"
+type = "bin"
+
+[dependencies]
