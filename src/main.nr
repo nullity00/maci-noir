@@ -1,11 +1,19 @@
 use dep::std;
 mod hasherPoseidon;
-fn main(bits: [u1]) -> pub u254 {
-    let mut num = 0;
-    for bit in 0..254 {
-        num = num + (2).pow_32(bit) as u254 * bits[bit] as u254;
-    }
-    num
+mod unpackElement;
+
+global ZERO = 0;
+
+fn main(msg: [Field; 11], pubkey: [Field; 2], encPrivkey: Field) -> pub [Field] {
+
+  let unpackedElements : [Field] = unpackElement::unpackElement(msg[0], 5);
+  let pollId = unpackedElements[0];
+  let nonce = unpackedElements[1];
+  let newVoteWeight = unpackedElements[2];
+  let voteOptionIndex = unpackedElements[3];
+  let stateIndex = unpackedElements[4];
+
+  [pollId, nonce, newVoteWeight, voteOptionIndex, stateIndex]
 }
 //   let bits: [u1] = input.to_le_bits(256);
 
