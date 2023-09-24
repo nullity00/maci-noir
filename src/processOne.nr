@@ -1,0 +1,3 @@
+fn processOne(stateTreeDepth, voteOptionTreeDepth){
+
+}

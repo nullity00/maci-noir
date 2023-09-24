@@ -1,5 +1,5 @@
-mod constants
-mod poseidonUtils
+mod poseidonConstants;
+mod poseidonUtils;
 
 
 global N_ROUNDS_P = [56, 57, 56, 60, 60, 63, 64, 63, 60, 66, 60, 65, 70, 60, 64, 68];
@@ -10,7 +10,7 @@ fn poseidonPerm(t: Field, inputs: [Field]) -> [Field]{
   let nRoundsP = N_ROUNDS_P[t - 2];
 
   let totalRounds = nRoundsF + nRoundsP;
-  let c : [Field] = constants::POSEIDON_C(t);
+  let c : [Field] = poseidonConstants::POSEIDON_C(t);
 
   let mut mixOut: [[Field]] = [];
   let mut arkOut: [[Field]] = [];
