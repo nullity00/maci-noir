@@ -1,8 +1,8 @@
 use dep::std;
 
+  global LEAVES_PER_NODE = 5;
 
 fn QuinCheckRoot(levels: Field, leaves: [Field]) -> Field{
-  global LEAVES_PER_NODE = 5;
 
   let totalLeaves = LEAVES_PER_NODE.pow_32(levels);
   assert(leaves.len() == totalLeaves);

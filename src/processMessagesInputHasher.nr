@@ -2,7 +2,7 @@
 
 use dep::std;
 mod hasherPoseidon;
-mod unpackElement;
+mod utils;
 
 struct ProcessOutput {
   maxVoteOptions: Field,
@@ -20,7 +20,7 @@ fn processMessagesInputHasher(
   newSbCommitment: Field,
   pollEndTimestamp: Field) -> ProcessOutput {
     
-  let unpackedElements : [Field] = unpackElement::unpackElement(packedVals, 4);
+  let unpackedElements : [Field] = utils::unpackElement(packedVals, 4);
 
   let maxVoteOptions = unpackedElements[3];
   let numSignUps = unpackedElements[2];

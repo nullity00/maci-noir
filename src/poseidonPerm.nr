@@ -1,5 +1,5 @@
 mod poseidonConstants;
-mod poseidonUtils;
+mod utils;
 
 
 global N_ROUNDS_P = [56, 57, 56, 60, 60, 63, 64, 63, 60, 66, 60, 65, 70, 60, 64, 68];
@@ -20,7 +20,7 @@ fn poseidonPerm(t: Field, inputs: [Field]) -> [Field]{
   let mut k = 0;
   for i in 0..totalRounds {
     let mut arkInput : [Field] = [];
-    arkOut[i] = poseidonUtils::ark(t, c, inputs, t*i);
+    arkOut[i] = utils::ark(t, c, inputs, t*i);
     for j in 0..t {
       if (i == 0){
         arkInput[j] = inputs[j];
@@ -39,14 +39,14 @@ fn poseidonPerm(t: Field, inputs: [Field]) -> [Field]{
         k = i - nRoundsP;
       }
       for j in 0..t {
-        sigmaFOut[k][j] = poseidonUtils::sigma(arkOut[i][j]);
+        sigmaFOut[k][j] = utils::sigma(arkOut[i][j]);
         mixInputs[j] = sigmaFOut[k][j];
       }
 
     } else {
 
       k = i - nRoundsF/2;
-      sigmaPOut[k] = poseidonUtils::sigma(arkOut[i][0]);
+      sigmaPOut[k] = utils::sigma(arkOut[i][0]);
       mixInputs[0] = sigmaPOut[k];
       for j in 1..t {
         mixInputs[j] = arkOut[i][j];

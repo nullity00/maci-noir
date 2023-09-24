@@ -1,6 +1,6 @@
 // https://github.com/privacy-scaling-explorations/maci/blob/master/circuits/circom/messageToCommand.circom
 
-mod unpackElement;
+mod utils;
 mod poseidonDecrypt;
 mod ecdh;
 
@@ -38,7 +38,7 @@ fn messageToCommand(msg: [Field; 11], pubkey: [Field; 2], encPrivkey: Field) -> 
     packedCommand[i] = decryptor[i];
   }
 
-  let unpackedElements : [Field] = unpackElement::unpackElement(packedCommand[0], 5);
+  let unpackedElements : [Field] = utils::unpackElement(packedCommand[0], 5);
   let pollId = unpackedElements[0];
   let nonce = unpackedElements[1];
   let newVoteWeight = unpackedElements[2];
