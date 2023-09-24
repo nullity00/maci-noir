@@ -44,3 +44,11 @@ fn unpackElement(input: Field, num: Field) -> [Field]{
 
   output
 }
+
+fn multiMux1(selector: Field, constants: [(Field, Field)], n: Field) -> [Field]{
+  let mut result : [Field] = [];
+  for i in 0..n {
+    result[i] = (constants[i].0 - constants[i].1) * selector + constants[i].0;
+  }
+  result
+}

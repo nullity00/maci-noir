@@ -1,13 +1,6 @@
 use dep::std;
 mod hasherPoseidon;
-
-fn multiMux1(selector: Field, constants: [(Field, Field)], n: Field) -> [Field]{
-  let mut result : [Field] = [];
-  for i in 0..n {
-    result[i] = (constants[i].0 - constants[i].1) * selector + constants[i].0;
-  }
-  result
-}
+mod utils;
 
 fn MerkleTreeInclusionProof(n_levels : Field, leaf: Field, pathIndex: [Field], path_elements: [(Field, Field)]) -> Field {
 
@@ -24,7 +17,7 @@ fn MerkleTreeInclusionProof(n_levels : Field, leaf: Field, pathIndex: [Field], p
     hashMux[0] = (levelHashes[i], path_elements[i].0);
     hashMux[1] = (path_elements[i].1, levelHashes[i]);
 
-    let output = multiMux1(pathIndex[i], hashMux, 2);
+    let output = utils::multiMux1(pathIndex[i], hashMux, 2);
     levelHashes[i+1] = hasherPoseidon::hashLeftRight(output[0], output[1]);
   }
 
