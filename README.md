@@ -17,7 +17,6 @@ Rewriting PSE's [MACI](https://github.com/privacy-scaling-explorations/maci) cir
 [ ] ecdh.nr
 [x] hasherPoseidon.nr
 [ ] hasherSha256.nr
-[x] main.nr
 [x] messageHasher.nr
 [x] messageToCommand.nr
 [x] messageValidator.nr
