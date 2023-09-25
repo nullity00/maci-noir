@@ -20,7 +20,7 @@ fn messageValidator(
   currentVoiceCreditBalance: Field,
   currentVotesForOption: Field,
   voteWeight: Field,
-  ) -> bool {
+  ) -> Field {
 
   let validSignature = verifySignature::verifySignature(pubKey, sigR8, sigS, cmd);
 
@@ -62,9 +62,9 @@ fn messageValidator(
   };
 
   let isValid = if (7 == sufficientVoiceCredits + validVoteWeight + validNonce + validStateLeafIndex + validTimestamp + validVoteOptionIndex + validSignature) {
-    true
+    1
   } else {
-    false
+    0
   };
 
   isValid
