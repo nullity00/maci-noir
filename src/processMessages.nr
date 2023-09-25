@@ -152,7 +152,7 @@ fn processMessages(
       currentStateLeavesPathElements[i],
     );
 
-    stateRoots[i] = processors[i][0] * (2-msgs[i][0]) + stateRoots[i+1] * (msgs[i][0]-1);
+    stateRoots[i] = processors[i][0] * (2-msgs[i][0]) + processors2[i] * (msgs[i][0]-1);
     ballotRoots[i] = processors[i][1] * (2-msgs[i][0]) + ballotRoots[i+1] * (msgs[i][0]-1);
   }
   
