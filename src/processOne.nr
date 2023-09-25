@@ -20,11 +20,11 @@ global STATE_LEAF_VOICE_CREDIT_BALANCE_IDX = 2;
 global STATE_LEAF_TIMESTAMP_IDX = 3;
 
 fn processOne(
+  stateTreeDepth: Field, 
+  voteOptionTreeDepth: Field,
   msgType: Field,
   numSignUps: Field,
   maxVoteOptions: Field,
-  stateTreeDepth: Field, 
-  voteOptionTreeDepth: Field,
   pollEndTimestamp: Field,
   currentStateRoot: Field,
   currentBallotRoot: Field,
@@ -46,7 +46,8 @@ fn processOne(
   cmdSigS: Field,
   packedCmd: [Field; PACKED_CMD_LENGTH],
 ) -> [Field; 2] {
-  let transformer : stateLeafAndBallotTransformer::TransformerOutput = stateLeafAndBallotTransformer::stateLeafAndBallotTransformer(
+  let transformer : stateLeafAndBallotTransformer::TransformerOutput = 
+    stateLeafAndBallotTransformer::stateLeafAndBallotTransformer(
     numSignUps, 
     maxVoteOptions,
     [stateLeaf[STATE_LEAF_PUB_X_IDX], stateLeaf[STATE_LEAF_PUB_Y_IDX]],

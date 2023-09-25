@@ -8,7 +8,6 @@ mod treeIncrementalQuin;
 mod privToPubKey;
 mod messageToCommand;
 mod utils;
-mod treeCheckRoot;
 mod processTopUp;
 mod stateLeafAndBallotTransformer;
 mod processOne;
@@ -92,7 +91,7 @@ fn processMessages(
   for i in msgBatchDepth..msgTreeDepth {
       msgBatchPathIndex[i - msgBatchDepth] = msgBatchPathIndices[i];
   }
-  let msgBatchLeavesExists = treeIncrementalQuin::quinBatchLeavesExists(
+  treeIncrementalQuin::quinBatchLeavesExists(
     msgTreeDepth, msgBatchDepth,msgBatchLeaves,msgBatchPathIndex,msgSubrootPathElements,msgRoot
   );
   
@@ -104,7 +103,59 @@ fn processMessages(
   for i in 0..batchSize {
     command[i] = messageToCommand::messageToCommand(msgs[i], encPubKeys[i], coordPrivKey);
   }
+
+  let mut stateRoots : [Field] = [];
+  let mut ballotRoots : [Field] = [];
   
+  let mut processors : [[Field; 2]] = [];
+  let mut processors2 : [Field] = [];
+
+  stateRoots[batchSize] = currentStateRoot;
+  ballotRoots[batchSize] = currentBallotRoot;
+
+  for k in 0..(batchSize - 1) {
+    let i = batchSize - k - 1;
+    processors[i] = processOne::processOne(
+      stateTreeDepth, 
+      voteOptionTreeDepth,
+      msgs[i][0],
+      inputHasher.numSignUps,
+      inputHasher.maxVoteOptions,
+      pollEndTimeStamp,
+      stateRoots[i + 1],
+      ballotRoots[i + 1],
+      currentStateLeaves[i],
+      currentStateLeavesPathElements[i],
+      currentBallots[i],
+      currentBallotsPathElements[i],
+      currentVoteWeights[i],
+      currentVoteWeightsPathElements[i],
+      command[i].stateIndex,
+      msgs[i][1],
+      command[i].newPubkey,
+      command[i].voteOptionIndex,
+      command[i].newVoteWeight,
+      command[i].nonce,
+      command[i].pollId,
+      command[i].salt,
+      command[i].sigR8,
+      command[i].sigS,
+      command[i].packedCommand,
+    );
+    processors2[i] = processTopUp::processTopUp(
+      stateTreeDepth,
+      msgs[i][0],
+      msgs[i][1],
+      msgs[i][2],
+      inputHasher.numSignUps,
+      currentStateLeaves[i],
+      currentStateLeavesPathElements[i],
+    );
+
+    stateRoots[i] = processors[i][0] * (2-msgs[i][0]) + stateRoots[i+1] * (msgs[i][0]-1);
+    ballotRoots[i] = processors[i][1] * (2-msgs[i][0]) + ballotRoots[i+1] * (msgs[i][0]-1);
+  }
   
-   
+  let sbCommitmentHasher = std::hash::poseidon::bn254::hash_3([stateRoots[0], ballotRoots[0], newSbSalt]);
+  assert(sbCommitmentHasher == newSbCommitment);
 }
