@@ -28,22 +28,6 @@ global STATE_LEAF_PUB_Y_IDX = 1;
 global STATE_LEAF_VOICE_CREDIT_BALANCE_IDX = 2;
 global STATE_LEAF_TIMESTAMP_IDX = 3;
 
-global TREE_ARITY = 5;
-global MSG_LENGTH = 11;
-global PACKED_CMD_LENGTH = 4;
-
-global STATE_LEAF_LENGTH = 4;
-global BALLOT_LENGTH = 2;
-
-global BALLOT_NONCE_IDX = 0;
-global BALLOT_VO_ROOT_IDX = 1;
-
-global STATE_LEAF_PUB_X_IDX = 0;
-global STATE_LEAF_PUB_Y_IDX = 1;
-global STATE_LEAF_VOICE_CREDIT_BALANCE_IDX = 2;
-global STATE_LEAF_TIMESTAMP_IDX = 3;
-
-
 fn processMessages(
   stateTreeDepth: Field,
   msgTreeDepth: Field,
