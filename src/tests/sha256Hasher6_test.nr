@@ -1,0 +1,1 @@
+// https://github.com/privacy-scaling-explorations/maci/blob/master/circuits/circom/test/sha256Hasher6_test.circom

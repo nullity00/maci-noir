@@ -1,0 +1,1 @@
+// https://github.com/privacy-scaling-explorations/maci/blob/master/circuits/circom/test/quinGeneratePathIndices_test.circom
